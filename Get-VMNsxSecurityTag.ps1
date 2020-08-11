@@ -10,7 +10,6 @@ param ($VM)
 
 Write-Host "`nRunning Get-VMNsxSecurityTag.ps1 script ..." -ForegroundColor "green"
 
-#Export VMs and their Security Tags to CSV
 Write-Host "`nRetrieving Security Tags from $VM" -ForegroundColor "green"
 $Tags = Get-VM $VM | Get-NsxSecurityTagAssignment
 $Tags.SecurityTag.name
