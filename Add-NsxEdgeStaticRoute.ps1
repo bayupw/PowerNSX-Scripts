@@ -2,7 +2,7 @@
 # Version: 1.0.0
 # PowerNSX version: 3.0.1047, 3.0.1125
 # 11 August 2020
-# Purpose: Add Static Routes from NSX Edge(s)
+# Purpose: Add a Static Route on an NSX Edge
 # Usage: .\Add-NsxEdgeStaticRoute.ps1 -Edge NSXEdgeName -Network x.x.x.x/y -NextHop x.x.x.x -Description 'Description of the Static Route'
 #   -Edge               - NSX Edge name
 #   -Network            - Network/Subnet mask x.x.x.x/y
@@ -23,9 +23,12 @@ if ($null -ne $Edge -And $null -ne $Network -And $null -ne $NextHop){
     else{
         Write-Host "`nRoute exists ..."
         Get-NsxEdge $Edge | Get-NsxEdgeRouting | Get-NsxEdgeStaticRoute | Where-Object { $_.network -eq $Network } | Format-Table
+    }
 }
 else {
     Write-Host "`n"
     Write-Warning "Please provide the following mandatory parameters:
     `n -Edge NSXEdgeName -Network x.x.x.x/y -NextHop x.x.x.x"
+    Write-Host "`nTo list NSX Edge names, perform:
+    `nGet-NsxEdge | Select-Object id, name"
 }
