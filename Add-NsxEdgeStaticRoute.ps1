@@ -20,6 +20,9 @@ if ($null -ne $Edge -And $null -ne $Network -And $null -ne $NextHop){
         Write-Host "`nRoute does not exist ... Adding route for $Network on NSX Edge $Edge ..."
         Get-NsxEdge $Edge | Get-NsxEdgeRouting | New-NsxEdgeStaticRoute -Network $Network -NextHop $NextHop -Description $Description
     }
+    else{
+        Write-Host "`nRoute exists ..."
+        Get-NsxEdge $Edge | Get-NsxEdgeRouting | Get-NsxEdgeStaticRoute | Where-Object { $_.network -eq $Network } | Format-Table
 }
 else {
     Write-Host "`n"
